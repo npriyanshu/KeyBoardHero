@@ -1,0 +1,44 @@
+#header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+   h2{
+    font-family: system-ui,'Open Sans', sans-serif;
+    user-select: none;
+   }
+    >div{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin:  0.3rem 2rem;
+
+    >a{
+        display: flex;
+        flex-direction: column;
+        font-size: 10px;
+        align-items: center;
+        cursor: pointer;
+    }
+     }
+}
+
+.svgdark{
+    color: #fff;
+    background-color: black;
+}
+.svglight{
+    color: black;
+    background-color: #fff;
+}
+
+
+.logoContainer{
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    >img{
+        width: 100px;
+        height: 100px;
+    }
+}

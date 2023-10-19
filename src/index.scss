@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  
+}
+
+@import './styles/Header';
+@import './styles/Footer';
+@import './styles/customize';
+@import './styles/Results';
+@import './styles/Login';
+@import './styles/Signup';
+@import './styles/chartcontainer';
+
+// ::selection{
+//   width: 100%;
+//   color: #fff;
+//   // background: #17A2B8;
+//   background-color: #cb3439;
+  
+// }
+#root{
+  color: #fff;
+  background-color: #0c0d11;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;flex-direction: column;
+  align-items: center;
+
+}
+.wrapper{
+  width: 100%;
+  height: 69.8vh;
+  // margin: 3vh;
+  background-color: inherit;
+}
+.wrapper .input-field{
+  opacity: 0;
+  z-index: -999;
+  position: absolute;
+  top: 80px;
+}
+.wrapper .content-box{
+  padding: 13px 20px 0;
+  // border-radius: 10px;
+  // border: 1px solid #bfbfbf;
+}
+.content-box .typing-text{
+  overflow: hidden;
+  // overflow-y: auto;
+  max-height: 15rem;
+}
+.typing-text::-webkit-scrollbar,body::-webkit-scrollbar{
+  width: 0;
+}
+.typing-text p{
+ 
+  font-size: 24px;
+  text-align: justify;
+  letter-spacing: 5px;
+  line-height: 2.2rem;
+  user-select: none;
+  // word-break: break-all; 
+  
+}
+.typing-text p span{
+  // color: #adacac;
+  color: #cf6bdd;
+  position: relative;
+  // padding: 1px;
+}
+.typing-text p span.correct{
+  /* color: #56964f; */
+  color: #fff;
+  // color: #fffeca;
+}
+.typing-text p span.incorrect{
+  color: #cb3439;
+  /* outline: 1px solid #fff; */
+  /* background: #ffc0cb; */
+  // text-decoration: underline;
+  border-radius: 4px;
+}
+.typing-text p span.active{
+  color: #17A2B8;
+  border-left: 1px solid #17A2B8;
+  
+  // &::before{
+  //   width: auto;
+  //   height: auto;
+ 
+  // position: absolute;
+  // content: ""; 
+  // height: 100%;
+  // width: 1px;
+  // bottom: 0;
+  // left: 0;
+  // background: #17A2B8;
+  // }
+}
+
+// .typing-text p span.active::before{
+//   position: absolute;
+//   content: ""; 
+//   height: 30px;
+//   width: 20%;
+//   bottom: 0;
+//   left: 0;
+//   opacity: 1;
+//   border-radius: 40px;
+//   background: #17A2B8;
+//   /* animation: blink 1s ease-in-out infinite;  */
+  
+  
+// }
+/* @keyframes blink{
+  50%{ 
+    opacity: 1; 
+  }
+} */
+
+.content-box .content{
+  // margin-top: 17px;
+  display: flex;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #bfbfbf;
+}
+.content button{
+  outline: none;
+  border: none;
+  width: 105px;
+  color: #fff;
+  padding: 8px 0;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  background: #17A2B8;
+  transition: transform 0.3s ease;
+}
+.content button:active{
+  transform: scale(0.97);
+}
+.content .result-details{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: calc(100% - 120px);
+  justify-content: space-between;
+}
+.result-details li{
+  display: flex;
+  height: 20px;
+  list-style: none;
+  position: relative;
+  align-items: center;
+}
+.result-details li:not(:first-child){
+  padding-left: 22px;
+  border-left: 1px solid #bfbfbf;
+}
+.result-details li p{
+  font-size: 19px;
+}
+.result-details li span{
+  display: block;
+  font-size: 20px;
+  margin-left: 10px;
+}
+li span b{
+  font-weight: 500;
+}
+li:not(:first-child) span{
+  font-weight: 500;
+}
+@media (max-width: 745px) {
+  .wrapper{
+    padding: 20px;
+  }
+  .content-box .content{
+    padding: 20px 0;
+  }
+  .content-box .typing-text{
+    max-height: 100%;
+  }
+  .typing-text p{
+    font-size: 19px;
+    text-align: left;
+  }
+  .content button{
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 0;
+    margin-top: 20px;
+  }
+  .content .result-details{
+    width: 100%;
+  }
+  .result-details li:not(:first-child){
+    border-left: 0;
+    padding: 0;
+  }
+  .result-details li p, 
+  .result-details li span{
+    font-size: 17px;
+  }
+}
+@media (max-width: 518px) {
+  .wrapper .content-box{
+    padding: 10px 15px 0;
+  }
+  .typing-text p{
+    font-size: 18px;
+  }
+  .result-details li{
+    margin-bottom: 10px;
+  }
+  .content button{
+    margin-top: 10px;
+  }
+}
+
+
+.light{
+  background-color: #fff;
+  color: #0b0c0f;
+  svg{
+    color: #0b0c0f;
+  }
+
+}
