@@ -3,7 +3,7 @@ import { AiFillClockCircle } from "react-icons/ai";
 import { StatesConstext } from '../Contexts/StateContextProvider';
 const Customize = () => {
 
-  const {setMaxTime,setRetry,timer} = useContext(StatesConstext);
+  const {setMaxTime,setRetry,timer,lightTheme} = useContext(StatesConstext);
 
  const btnHandler =(e)=>{
   setMaxTime(Number(e.target.innerText))
@@ -14,7 +14,7 @@ const Customize = () => {
     <div className="customize">
       <div>
       <p style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-        <AiFillClockCircle size={20} />
+        <AiFillClockCircle size={20} className={lightTheme ? "svglight" : "svgdark"} />
         time : <b>{timer}</b>
       </p>
       </div>

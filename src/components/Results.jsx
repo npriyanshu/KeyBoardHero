@@ -17,6 +17,7 @@ const Results = () => {
     accuracy,
     mistakenWords,
     mistakesCollection,
+    lightTheme,
   } = useContext(StatesConstext);
 
   const updateTests = () => {
@@ -47,14 +48,21 @@ const Results = () => {
   }
 
   useEffect(() => {
+    // console.log(currentUser)
     try {
       onAuthStateChanged(auth, (res) => {
         if (res?.accessToken) {
           if (currentUser?.topSpeed < wpm) {
             editProfile(currentUser?.id, {
               topSpeed: wpm,
+              accuracy:accuracy,
             });
           }
+         
+            editProfile(currentUser?.id, {
+              totalTests:Number(`${currentUser.totalTests?currentUser.totalTests+1:1}`),
+            });
+       
           updateTests();
           const Mstk =mistakesCollection.mistakenLetters?mistakesCollection.mistakenLetters:[];
           Mstk.push(countLetterFrequency(mistakenWords))
@@ -68,7 +76,7 @@ const Results = () => {
     } catch (err) {
       toast.error(err);
     }
-  console.log(mistakesCollection?.id)
+  // console.log(mistakesCollection?.id)
     const handleListner = (e) => {
       if (e.key === "Tab" || e.keyCode === 9) {
         e.preventDefault();
@@ -85,7 +93,7 @@ const Results = () => {
   }, [currentUser?.topSpeed,mistakesCollection?.id]);
 
   return (
-    <div className="results">
+    <div className={`results ${lightTheme?'light':''}`}>
       <div className="content">
         <ul className="result-details">
           <li className="mistake">

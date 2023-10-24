@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { createContext, useState } from "react";
+import { createContext,  useState } from "react";
 
 
 export const StatesConstext = createContext({});
@@ -23,6 +23,7 @@ export const StatesConstext = createContext({});
   const [lightTheme, setLightTheme] = useState(false);
   const [prevTotalTime,setPrevTotalTime] = useState(0);
 
+  
   return <StatesConstext.Provider value={{ para,
     setPara,
     userInput,

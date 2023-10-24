@@ -34,7 +34,7 @@ const Home = () => {
     currentUser,
     setCurrentUser,
     prevTotalTime,
-    setPrevTotalTime
+    setPrevTotalTime,
   } = useContext(StatesConstext);
 
   const inpRef = useRef();
@@ -61,8 +61,6 @@ const Home = () => {
     const newPara = words.join(" ");
     setPara(newPara);
   };
-  
-  console.log(typingTime)
 
   const inputHandler = (e) => {
     setUserInput(e.target.value);
@@ -78,7 +76,7 @@ const Home = () => {
       const newTime = typingTimeCounter(setTypingTime);
       typingTimerRef.current = newTime;
     }
-  }
+  };
 
   const resetTimer = () => {
     if (timerRef.current) {
@@ -123,9 +121,6 @@ const Home = () => {
     return wpmValue;
   };
 
-
-
-
   const calculateAccuracy = () => {
     const charactersTyped = userInput.length;
     const correctCharacters = charactersTyped - mistakes;
@@ -138,8 +133,6 @@ const Home = () => {
     return accuracyPercentage.toFixed(2);
   };
 
-
-// console.log('total time :'+currentUser.totalTime)
   useEffect(() => {
     try {
       getCurrentUser(setCurrentUser);
@@ -153,31 +146,25 @@ const Home = () => {
       setIsCompleted(false);
       setRetry(false);
       resetTimer();
-      clearInterval(typingTimerRef.current)
-      typingTimerRef.current = null
-      setPrevTotalTime(currentUser.totalTime ? currentUser.totalTime :0)
-      
-    console.log('prev time '+ prevTotalTime)
-    resetTypingTimeCounter();
-    setMistakenWords([]);
-  
-   } catch (error) {
-    console.log(error)
-   }
+      clearInterval(typingTimerRef.current);
+      typingTimerRef.current = null;
+      setPrevTotalTime(currentUser.totalTime ? currentUser.totalTime : 0);
+
+      resetTypingTimeCounter();
+      setMistakenWords([]);
+    } catch (error) {
+      console.log(error);
+    }
     document.addEventListener("keydown", () => {
       if (inpRef.current) {
         inpRef.current.focus();
       }
     });
-    return ()=>{
+    return () => {
       resetTypingTimeCounter();
-    }
+    };
     //  eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [retry, maxTime,prevTotalTime,currentUser?.totalTime]);
-
-
-
-
+  }, [retry, maxTime, prevTotalTime, currentUser?.totalTime]);
 
   useEffect(() => {
     if (paraRef.current) {
@@ -186,16 +173,18 @@ const Home = () => {
 
       if (charIndex === typedChar.length - 1) {
         if (characters[charIndex].textContent === typedChar[charIndex]) {
-          characters[charIndex].classList.add("correct");
+          characters[charIndex].classList.add(lightTheme?"lightCorrect":"correct");
         } else {
-          characters[charIndex].classList.add("incorrect");
+          characters[charIndex].classList.add(lightTheme?"lightIncorrect":"incorrect");
           setMistakes((prev) => prev + 1);
-          setMistakenWords((prev) => [
-            ...prev,
-            characters[charIndex].textContent.trim() === " "
-              ? " "
-              : characters[charIndex].textContent,
-          ].filter((item) => item !== " "));
+          setMistakenWords((prev) =>
+            [
+              ...prev,
+              characters[charIndex].textContent.trim() === " "
+                ? " "
+                : characters[charIndex].textContent,
+            ].filter((item) => item !== " ")
+          );
         }
         characters.forEach((span) => {
           span.classList.remove("active");
@@ -206,12 +195,12 @@ const Home = () => {
 
       characters.forEach((span, index) => {
         if (userInput.length === 0) {
-          span.classList.remove("active", "incorrect", "correct");
+          span.classList.remove("active", lightTheme?"lightIncorrect":"incorrect", lightTheme?"lightCorrect":"correct");
         }
         if (index < charIndex) {
-          span.classList.add("correct");
+          span.classList.add(lightTheme ? "lightCorrect" : "correct");
         } else {
-          span.classList.remove("correct");
+          span.classList.remove(lightTheme ? "lightCorrect" : "correct");
         }
         if (index === charIndex) {
           span.classList.add("active");
@@ -219,7 +208,7 @@ const Home = () => {
           span.classList.remove("active");
         }
         if (typedChar[index] === span.textContent) {
-          span.classList.remove("incorrect");
+          span.classList.remove(lightTheme ? "lightIncorrect" : "incorrect");
         }
         if (charIndex === characters.length) {
           setIsCompleted(true);
@@ -231,34 +220,34 @@ const Home = () => {
 
   useEffect(() => {
     try {
-        const wpmValue = calculateWPM();
-        const cpmValue = calculateCPM();
-        const accuracyValue = calculateAccuracy();
-        setWpm(wpmValue);
-        setCpm(cpmValue);
-        setAccuracy(accuracyValue);
+      const wpmValue = calculateWPM();
+      const cpmValue = calculateCPM();
+      const accuracyValue = calculateAccuracy();
+      setWpm(wpmValue);
+      setCpm(cpmValue);
+      setAccuracy(accuracyValue);
 
-        if (timer === 0) {
-          setIsCompleted(true);
-          
-          editProfile(currentUser?.id,
-            {
-              totalTime:typingTime+prevTotalTime,
-            })
+      if (timer === 0) {
+        setIsCompleted(true);
+
+        editProfile(currentUser?.id, {
+          totalTime: typingTime + prevTotalTime,
+        });
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
     //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timer, isCompleted]);
-console.log(currentUser)
   useEffect(() => {
-
     if (!isCompleted) {
-      const handleBackspace = async(e) => {
+      const handleBackspace = async (e) => {
         let characters = paraRef.current.querySelectorAll("span");
         if (e.keyCode === 8 && charIndex > 0) {
-          characters[charIndex].classList.remove("incorrect", "correct");
+          characters[charIndex].classList.remove(
+            lightTheme ? "lightIncorrect" : "incorrect",
+            lightTheme ? "lightCorrect" : "correct"
+          );
           if (mistakes > 0) {
             setMistakes((prev) => prev - 1);
           }
@@ -270,10 +259,9 @@ console.log(currentUser)
           e.preventDefault();
           setRetry(true);
 
-           editProfile(currentUser?.id,
-            {
-              totalTime:typingTime+prevTotalTime
-            })
+          editProfile(currentUser?.id, {
+            totalTime: typingTime + prevTotalTime,
+          });
           resetTimer();
           resetTypingTimeCounter();
         }
@@ -287,7 +275,6 @@ console.log(currentUser)
     }
     //  eslint-disable-next-line react-hooks/exhaustive-deps
   }, [charIndex, userInput, isCompleted, mistakes]);
-
 
   return (
     <div className={`wrapper ${lightTheme ? "light" : ""}`}>
@@ -308,11 +295,10 @@ console.log(currentUser)
       <div className="content-box">
         <div className="typing-text" onClick={() => inpRef.current.focus()}>
           {para !== null ? (
-            <p ref={paraRef}>
+            <p ref={paraRef} className={lightTheme ? "light" : ""}>
               {para.split("").map((char, idx) => (
                 <span key={idx}>{char}</span>
-              )
-            )}
+              ))}
             </p>
           ) : (
             ""

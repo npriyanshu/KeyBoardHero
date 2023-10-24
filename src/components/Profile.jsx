@@ -7,7 +7,7 @@ import findMaxWpm from '../helpers/MaxWpmFinder';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
-    const {setCurrentUser,currentUser} = useContext(StatesConstext)
+    const {setCurrentUser,currentUser,lightTheme} = useContext(StatesConstext)
     const [tests,setTests] = useState(null);
     let navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const Profile = () => {
      } , [tests,currentUser?.id,currentUser?.topSpeed]);
 
     return (
-        <div>
+        <div className={lightTheme?'light':''}>
             <h1 style={{textAlign:'center'}}>Profile</h1>
            
             <div style={{marginTop:'20px'}} className='container'>

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Setting = () => {
   let navigate = useNavigate();
-const {maxTime, setIsCompleted, setTimer} = useContext(StatesConstext);
+const {maxTime, setIsCompleted, setTimer,lightTheme} = useContext(StatesConstext);
 
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const {maxTime, setIsCompleted, setTimer} = useContext(StatesConstext);
     <div style={{
       width:'100vw',
       height:'70vh',
-      background:'black'
-    }}>Setting</div>
+      background:'#0c0d11'
+    }} className={lightTheme?'light':''}>Setting</div>
   )
 }
 
